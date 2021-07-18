@@ -68,7 +68,42 @@ public class DoublyLinkedList<E> implements ListInterface<E> {
 
     public E remove(int givenPosition) {
         //TODO: implement this method
-        return null; //update this return
+    	E result = null;
+    	
+    	if((givenPosition>=0)&&(givenPosition <=(numberOfEntries -1))) 
+    		{
+    		
+    		assert!isEmpty(); 
+    		if(givenPosition ==0) {
+    			result =head.getData();
+    			head = head.getNextNode();
+    			
+    			//update previous
+    			if(head!=null) 
+    				{
+    					head.setPreviousNode(null);
+    				}
+
+    		} else {
+    			Node nodeBefore = getNodeAt(givenPosition -1);
+    			Node nodeToRemove = nodeBefore.getNextNode();
+    			result = nodeToRemove.getData();
+    			Node nodeAfter = nodeToRemove.getNextNode();
+    			nodeBefore.setNextNode(nodeAfter);
+    			nodeAfter.setPreviousNode(nodeBefore);
+    			
+    			
+    			
+    		}
+    		numberOfEntries--;
+    		return result;
+
+    	} else {
+    		throw new IndexOutOfBoundsException("Illegal positiion given to remove operation.");
+    		
+    	}
+    	
+
     }
 
     public E set(int givenPosition, E newEntry) {
